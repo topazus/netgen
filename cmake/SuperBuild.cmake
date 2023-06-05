@@ -153,7 +153,8 @@ endif()
 
 #######################################################################
 if (USE_PYTHON)
-  find_path(PYBIND_INCLUDE_DIR pybind11/pybind11.h PATHS ${CMAKE_CURRENT_SOURCE_DIR}/external_dependencies/pybind11/include NO_DEFAULT_PATH)
+  if (NOT PREFER_SYSTEM_PYBIND11)
+    find_path(PYBIND_INCLUDE_DIR pybind11/pybind11.h PATHS ${CMAKE_CURRENT_SOURCE_DIR}/external_dependencies/pybind11/include NO_DEFAULT_PATH)
     set(NG_INSTALL_PYBIND ON)
     if( NOT PYBIND_INCLUDE_DIR )
       # if the pybind submodule is missing, try to initialize and update all submodules
@@ -178,6 +179,7 @@ if (USE_PYTHON)
       PYBIND_INCLUDE_DIR
       NG_INSTALL_PYBIND
       )
+  endif(NOT PREFER_SYSTEM_PYBIND11)
 endif (USE_PYTHON)
 
 #######################################################################
